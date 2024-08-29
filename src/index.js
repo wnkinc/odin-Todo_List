@@ -1,6 +1,7 @@
 import 'normalize.css'; // Importing normalize.css from node_modules
 
 import "./styles.css";
-import { loadHomePage } from "./greeting.js";
+import { createTodoFromForm } from './formUI.js';
 
-loadHomePage();
+// Add event listener to the form
+document.getElementById('todoForm').addEventListener('submit', createTodoFromForm);

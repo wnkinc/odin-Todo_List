@@ -6,6 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="container">
+        <header class="header">
+            <h1>To-Do List</h1>
+        </header>
+        <aside class="sidebar">
+            <form id="todoForm">
+                <input type="text" id="title" placeholder="Title" />
+                <input type="text" id="description" placeholder="Description" />
+                <input type="date" id="dueDate" />
+                <div class="checkbox"><input type="checkbox" id="priority" /> Priority</div>
+                <textarea id="notes" placeholder="Notes"></textarea>
+                <select id="project">
+                    <option value="none">None</option>
+                    <option value="Personal">Personal</option>
+                </select>
+                <button type="submit">Create Todo</button>
+            </form>
+        </aside>
+        <main class="main">
+            <!-- Tasks will be displayed here -->
+        </main>
+    </div>   
 </body>
 </html>

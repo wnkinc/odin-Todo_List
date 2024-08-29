@@ -1,5 +1,82 @@
-/* styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    background-color: rebeccapurple;
-  }
-  
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+      "header header"
+      "sidebar main";
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header {
+  grid-area: header;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #eee;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.main {
+  grid-area: main;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#todoForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#notes {
+  height: 100px;
+  resize: vertical; /* Allows users to resize the textarea vertically */
+  margin-bottom: 15px;
+}
+
+#todoForm input,
+#todoForm select,
+#todoForm button {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#todoForm button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#todoForm button:hover {
+  background-color: #555;
+}

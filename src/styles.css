@@ -49,20 +49,25 @@ body {
   overflow-y: auto;
 }
 
-#todoForm {
+#todoForm,
+#projectForm {
   display: flex;
   flex-direction: column;
 }
 
-#notes {
+#notes,
+#pNotes {
   height: 100px;
   resize: vertical; /* Allows users to resize the textarea vertically */
   margin-bottom: 15px;
 }
 
 #todoForm input,
+#projectForm input,
 #todoForm select,
-#todoForm button {
+#projectForm select,
+#todoForm button,
+#projectForm button {
   margin-bottom: 15px;
   padding: 10px;
   font-size: 16px;
@@ -70,13 +75,15 @@ body {
   border-radius: 5px;
 }
 
-#todoForm button {
+#todoForm button,
+#projectForm button {
   background-color: #333;
   color: #fff;
   border: none;
   cursor: pointer;
 }
 
-#todoForm button:hover {
+#todoForm button:hover,
+#projectForm button:hover {
   background-color: #555;
 }

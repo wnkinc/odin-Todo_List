@@ -17,3 +17,24 @@ projectForm.style.display = 'none';
 // Add event listener to the form
 document.getElementById('todoForm').addEventListener('submit', createTodoFromForm);
 document.getElementById('projectForm').addEventListener('submit', createProjectFromForm);
+
+// reveal forms
+let addTodoForm = document.createElement('button');
+addTodoForm.classList.add('addButton');
+addTodoForm.textContent = 'Add To-Do';
+addTodoForm.addEventListener('click', () => {
+    todoForm.style.display = 'block';
+    const addButton = document.querySelector('.addButton');
+    addButton.style.display = 'none';
+});
+sidebar.insertBefore(addTodoForm, projectForm);
+
+let addProjectForm = document.createElement('button');
+addProjectForm.classList.add('addProject');
+addProjectForm.textContent = 'Add Project';
+addProjectForm.addEventListener('click', () => {
+    projectForm.style.display = 'block';
+    const addProject = document.querySelector('.addProject');
+    addProject.style.display = 'none';
+});
+sidebar.appendChild(addProjectForm);

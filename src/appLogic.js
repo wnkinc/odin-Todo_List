@@ -35,8 +35,10 @@ export function createTodoFromForm(event) {
     // Use the array to create a new Todo object
     const newTodo = new Todo(...todoData); // Assuming Todo is in the global scope or correctly imported
 
-    const todoForm = document.querySelector('#todoForm');
-    todoForm.style.display = 'none';
+    const modTodoForm = document.querySelector('#todoForm');
+    modTodoForm.style.display = 'none';
+    const modAddButton = document.querySelector('.addButton');
+    modAddButton.style.display = 'block';
 
     console.log(newTodo);
 }
@@ -59,8 +61,10 @@ export function createProjectFromForm(event) {
     // Use the array to create a new Project object
     const newProject = new Projects(...projectData); // Assuming Projects is in the global scope or correctly imported
 
-    const projectForm = document.querySelector('#projectForm');
-    projectForm.style.display = 'none';
+    let modProjectForm = document.querySelector('#projectForm');
+    modProjectForm.style.display = 'none';
+    let modAddProject = document.querySelector('.addProject');
+    modAddProject.style.display = 'block';
 
     console.log(newProject);
 }

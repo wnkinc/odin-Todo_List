@@ -1,5 +1,5 @@
 // Function to create the To-Do form
-export function createTodoForm() {
+function createTodoForm() {
     const todoForm = document.createElement('form');
     todoForm.id = 'todoForm';
 
@@ -20,7 +20,7 @@ export function createTodoForm() {
 }
 
 // Function to create the Project form
-export function createProjectForm() {
+function createProjectForm() {
     const projectForm = document.createElement('form');
     projectForm.id = 'projectForm';
 
@@ -34,4 +34,38 @@ export function createProjectForm() {
     `;
 
     return projectForm;
+}
+
+export function revealForms() {
+    let addTodoForm = document.createElement('button');
+    addTodoForm.classList.add('addButton');
+    addTodoForm.textContent = 'Add To-Do';
+    addTodoForm.addEventListener('click', () => {
+        todoForm.style.display = 'flex';
+        const addButton = document.querySelector('.addButton');
+        addButton.style.display = 'none';
+    });
+    sidebar.insertBefore(addTodoForm, projectForm);
+
+    let addProjectForm = document.createElement('button');
+    addProjectForm.classList.add('addProject');
+    addProjectForm.textContent = 'Add Project';
+    addProjectForm.addEventListener('click', () => {
+        projectForm.style.display = 'flex';
+        const addProject = document.querySelector('.addProject');
+        addProject.style.display = 'none';
+    });
+    sidebar.appendChild(addProjectForm);
+}
+
+export function addHideForms() {
+    // Adding the forms to the sidebar
+    const sidebar = document.getElementById('sidebar');
+    sidebar.appendChild(createTodoForm());
+    sidebar.appendChild(createProjectForm());
+    // hide forms
+    const todoForm = document.querySelector('#todoForm');
+    todoForm.style.display = 'none';
+    const projectForm = document.querySelector('#projectForm');
+    projectForm.style.display = 'none';
 }

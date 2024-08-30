@@ -17,6 +17,9 @@ function Todo(title, description, dueDate, priority, notes, project) {
     this.project = project;
 }
 
+let todos = [];
+let projects = [];
+
 // Function to create a Todo from form input
 export function createTodoFromForm(event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -33,14 +36,19 @@ export function createTodoFromForm(event) {
     const todoData = [title, description, dueDate, priority, notes, project];
 
     // Use the array to create a new Todo object
-    const newTodo = new Todo(...todoData); // Assuming Todo is in the global scope or correctly imported
+    const newTodo = new Todo(...todoData);
 
     const modTodoForm = document.querySelector('#todoForm');
     modTodoForm.style.display = 'none';
     const modAddButton = document.querySelector('.addButton');
     modAddButton.style.display = 'block';
 
-    console.log(newTodo);
+
+    todos.push(newTodo);
+    console.log(todos);
+
+    // Reset the form fields
+    event.target.reset(); // Resets the form to its initial state
 }
 
 // Function to create a Project from form input
@@ -59,12 +67,17 @@ export function createProjectFromForm(event) {
     const projectData = [title, description, dueDate, priority, notes, todo];
 
     // Use the array to create a new Project object
-    const newProject = new Projects(...projectData); // Assuming Projects is in the global scope or correctly imported
+    const newProject = new Projects(...projectData);
 
     let modProjectForm = document.querySelector('#projectForm');
     modProjectForm.style.display = 'none';
     let modAddProject = document.querySelector('.addProject');
     modAddProject.style.display = 'block';
 
-    console.log(newProject);
+    
+    projects.push(newProject);
+    console.log(projects);
+
+    // Reset the form fields
+    event.target.reset(); // Resets the form to its initial state
 }

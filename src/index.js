@@ -4,6 +4,7 @@ import "./styles.css";
 import { createTodoFromForm, createProjectFromForm } from './AppLogic';
 import { createTodoForm, createProjectForm } from './DOM-Stuff';
 
+
 // Adding the forms to the sidebar
 const sidebar = document.getElementById('sidebar');
 sidebar.appendChild(createTodoForm());

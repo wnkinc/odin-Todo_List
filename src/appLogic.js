@@ -20,6 +20,26 @@ function Todo(title, description, dueDate, priority, notes, project) {
 let todos = [];
 let projects = [];
 
+function updateProjectInTodo() {
+    const todoSelect = document.querySelector('#project');
+    todoSelect.textContent = '';
+    const anotherOption = document.createElement('option');
+    // Set the attributes
+    anotherOption.value = ''; // or option.setAttribute('value', '');
+    anotherOption.disabled = true; // or option.setAttribute('disabled', '');
+    anotherOption.selected = true; // or option.setAttribute('selected', '');
+    anotherOption.hidden = true; // or option.setAttribute('hidden', '');
+    anotherOption.textContent = 'Select a project';
+    todoSelect.appendChild(anotherOption);
+
+    projects.forEach((project) => {
+        const anotherOption = document.createElement('option');
+        anotherOption.value = project.title;
+        anotherOption.textContent = project.title;
+        todoSelect.appendChild(anotherOption);
+    });
+}
+
 // Function to create a Todo from form input
 export function createTodoFromForm(event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -42,7 +62,6 @@ export function createTodoFromForm(event) {
     modTodoForm.style.display = 'none';
     const modAddButton = document.querySelector('.addButton');
     modAddButton.style.display = 'block';
-
 
     todos.push(newTodo);
     console.log(todos);
@@ -74,9 +93,10 @@ export function createProjectFromForm(event) {
     let modAddProject = document.querySelector('.addProject');
     modAddProject.style.display = 'block';
 
-    
     projects.push(newProject);
     console.log(projects);
+
+    updateProjectInTodo();
 
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state

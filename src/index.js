@@ -1,7 +1,7 @@
 import 'normalize.css'; // Importing normalize.css from node_modules
 
 import "./styles.css";
-import { createTodoFromForm, createProjectFromForm } from './appLogic.js';
+import { createTodoFromForm, createProjectFromForm } from './AppLogic';
 import { createTodoForm, createProjectForm } from './DOM-Stuff';
 
 // Adding the forms to the sidebar
@@ -23,7 +23,7 @@ let addTodoForm = document.createElement('button');
 addTodoForm.classList.add('addButton');
 addTodoForm.textContent = 'Add To-Do';
 addTodoForm.addEventListener('click', () => {
-    todoForm.style.display = 'block';
+    todoForm.style.display = 'flex';
     const addButton = document.querySelector('.addButton');
     addButton.style.display = 'none';
 });
@@ -33,7 +33,7 @@ let addProjectForm = document.createElement('button');
 addProjectForm.classList.add('addProject');
 addProjectForm.textContent = 'Add Project';
 addProjectForm.addEventListener('click', () => {
-    projectForm.style.display = 'block';
+    projectForm.style.display = 'flex';
     const addProject = document.querySelector('.addProject');
     addProject.style.display = 'none';
 });

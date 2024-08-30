@@ -41,6 +41,8 @@ body {
   padding: 20px;
   border-right: 1px solid #ccc;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
@@ -67,7 +69,9 @@ body {
 #todoForm select,
 #projectForm select,
 #todoForm button,
-#projectForm button {
+#projectForm button,
+.addButton,
+.addProject {
   margin-bottom: 15px;
   padding: 10px;
   font-size: 16px;
@@ -76,7 +80,9 @@ body {
 }
 
 #todoForm button,
-#projectForm button {
+#projectForm button,
+.addButton,
+.addProject {
   background-color: #333;
   color: #fff;
   border: none;

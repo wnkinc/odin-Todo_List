@@ -25,7 +25,7 @@ export function createTodoFromForm(event) {
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
     const dueDate = document.getElementById('dueDate').value;
-    const priority = document.getElementById('priority').value;
+    const priority = document.getElementById('priority').checked;
     const notes = document.getElementById('notes').value;
     const project = document.getElementById('project').value; // Get selected project value
 
@@ -34,6 +34,9 @@ export function createTodoFromForm(event) {
 
     // Use the array to create a new Todo object
     const newTodo = new Todo(...todoData); // Assuming Todo is in the global scope or correctly imported
+
+    const todoForm = document.querySelector('#todoForm');
+    todoForm.style.display = 'none';
 
     console.log(newTodo);
 }
@@ -46,7 +49,7 @@ export function createProjectFromForm(event) {
     const title = document.getElementById('pTitle').value;
     const description = document.getElementById('pDescription').value;
     const dueDate = document.getElementById('pDueDate').value;
-    const priority = document.getElementById('pPriority').value;
+    const priority = document.getElementById('pPriority').checked;
     const notes = document.getElementById('pNotes').value;
     const todo = []; // Initialize with an empty array or gather from form if applicable
 
@@ -55,6 +58,9 @@ export function createProjectFromForm(event) {
 
     // Use the array to create a new Project object
     const newProject = new Projects(...projectData); // Assuming Projects is in the global scope or correctly imported
+
+    const projectForm = document.querySelector('#projectForm');
+    projectForm.style.display = 'none';
 
     console.log(newProject);
 }

@@ -20,7 +20,7 @@ function Todo(title, description, dueDate, priority, notes, project) {
 let todos = [];
 let projects = [];
 
-function updateProjectInTodo() {
+function updateProjectsInTodo() {
     const todoSelect = document.querySelector('#project');
     todoSelect.textContent = '';
     const anotherOption = document.createElement('option');
@@ -37,6 +37,18 @@ function updateProjectInTodo() {
         anotherOption.value = project.title;
         anotherOption.textContent = project.title;
         todoSelect.appendChild(anotherOption);
+    });
+}
+
+function updateProjectsInProjects() {
+    const projectButtons = document.querySelector('.projectButtons');
+    projectButtons.innerHTML = '';
+
+    projects.forEach((project) => {
+        const projectButton = document.createElement('button');
+        projectButton.classList.add('projectList');
+        projectButton.textContent = project.title;
+        projectButtons.appendChild(projectButton);
     });
 }
 
@@ -96,7 +108,8 @@ export function createProjectFromForm(event) {
     projects.push(newProject);
     console.log(projects);
 
-    updateProjectInTodo();
+    updateProjectsInTodo();
+    updateProjectsInProjects();
 
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state

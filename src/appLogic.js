@@ -17,8 +17,8 @@ function Todo(title, description, dueDate, priority, notes, project) {
     this.project = project;
 }
 
-let todos = [];
-let projects = [];
+export const todos = [];
+export const projects = [];
 
 function updateProjectsInTodo() {
     const todoSelect = document.querySelector('#project');
@@ -52,6 +52,39 @@ function updateProjectsInProjects() {
     });
 }
 
+function updateTodoListByProject () {
+    const main = document.querySelector('.main');
+    main.innerHTML = '';
+    
+    todos.forEach((todo) => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('itemContainer');
+
+        const itemButton = document.createElement('button');
+        itemButton.classList.add('todoItem')
+        if(todo.priority) itemButton.classList.add('priorityMark');
+        itemButton.textContent = todo.title;
+        itemContainer.appendChild(itemButton);
+
+        const descriptionDiv = document.createElement('div');
+        descriptionDiv.classList.add('description');
+        descriptionDiv.textContent = todo.description;
+        itemContainer.appendChild(descriptionDiv);
+
+        const dueDateDiv = document.createElement('div');
+        dueDateDiv.classList.add('dueDate');
+        dueDateDiv.textContent = todo.dueDate;
+        itemContainer.appendChild(dueDateDiv);
+
+        const notesDiv = document.createElement('div');
+        notesDiv.classList.add('notes');
+        notesDiv.textContent = todo.notes;
+        itemContainer.appendChild(notesDiv);
+
+        main.appendChild(itemContainer);
+    });
+}
+
 // Function to create a Todo from form input
 export function createTodoFromForm(event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -77,6 +110,8 @@ export function createTodoFromForm(event) {
 
     todos.push(newTodo);
     console.log(todos);
+
+    updateTodoListByProject();
 
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state

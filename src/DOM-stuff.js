@@ -1,3 +1,5 @@
+import { todos, projects } from "./AppLogic";
+
 // Function to create the To-Do form
 function createTodoForm() {
     const todoForm = document.createElement('form');

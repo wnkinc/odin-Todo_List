@@ -12,7 +12,7 @@ function createTodoForm() {
         <div class="checkbox"><input type="checkbox" id="priority" /> Priority</div>
         <textarea id="notes" placeholder="Notes"></textarea>
         <select id="project">
-            <option value="" disabled selected hidden>Select a project</option>
+            <option value="" disabled selected hidden>Select A Project</option>
             <option value="Personal">Personal</option>
         </select>
         <button type="submit">Create To-Do</button>
@@ -30,7 +30,6 @@ function createProjectForm() {
         <input type="text" id="pTitle" placeholder="Title" />
         <input type="text" id="pDescription" placeholder="Description" />
         <div>Due Date <input type="date" id="pDueDate" /></div>
-        <div class="checkbox"><input type="checkbox" id="pPriority" /> Priority</div>
         <textarea id="pNotes" placeholder="Notes"></textarea>
         <button type="submit">Create Project</button>
     `;
@@ -70,4 +69,10 @@ export function addHideForms() {
     todoForm.style.display = 'none';
     const projectForm = document.querySelector('#projectForm');
     projectForm.style.display = 'none';
+}
+
+export function toggleTodoItem() {
+    const todoItemContent = document.querySelector('.toggleTodo');
+
+
 }

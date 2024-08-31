@@ -3,22 +3,23 @@ function Projects(title, description, dueDate, priority, notes, todo = []) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority;
     this.notes = notes;
     this.todo = todo;
 }
 
-function Todo(title, description, dueDate, priority, notes, project) {
+function Todo(title, description, dueDate, priority, notes, project, id) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.notes = notes;
     this.project = project;
+    this.id = id;
 }
 
 export const todos = [];
 export const projects = [];
+let todoID = 1;
 
 function updateProjectsInTodo() {
     const todoSelect = document.querySelector('#project');
@@ -59,6 +60,7 @@ function updateTodoListByProject () {
     todos.forEach((todo) => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('itemContainer');
+        itemContainer.dataset.id = todo.id;
 
         const itemButton = document.createElement('button');
         itemButton.classList.add('todoItem')
@@ -66,24 +68,43 @@ function updateTodoListByProject () {
         itemButton.textContent = todo.title;
         itemContainer.appendChild(itemButton);
 
+        const toggleTodoDiv = document.createElement('div');
+        toggleTodoDiv.classList.add('toggleTodo');
+        itemContainer.appendChild(toggleTodoDiv);
+        toggleTodoDiv.style.display = 'none';
+
+        itemButton.addEventListener('click', () => {
+            if(toggleTodoDiv.style.display === 'block') toggleTodoDiv.style.display = 'none';
+            else toggleTodoDiv.style.display = 'block';
+        });
+
         const descriptionDiv = document.createElement('div');
         descriptionDiv.classList.add('description');
         descriptionDiv.textContent = todo.description;
-        itemContainer.appendChild(descriptionDiv);
+        toggleTodoDiv.appendChild(descriptionDiv);
 
         const dueDateDiv = document.createElement('div');
         dueDateDiv.classList.add('dueDate');
         dueDateDiv.textContent = todo.dueDate;
-        itemContainer.appendChild(dueDateDiv);
+        toggleTodoDiv.appendChild(dueDateDiv);
 
         const notesDiv = document.createElement('div');
         notesDiv.classList.add('notes');
         notesDiv.textContent = todo.notes;
-        itemContainer.appendChild(notesDiv);
+        toggleTodoDiv.appendChild(notesDiv);
 
         main.appendChild(itemContainer);
     });
 }
+
+
+
+
+
+
+
+
+
 
 // Function to create a Todo from form input
 export function createTodoFromForm(event) {
@@ -99,6 +120,8 @@ export function createTodoFromForm(event) {
 
     // Put the values into an array
     const todoData = [title, description, dueDate, priority, notes, project];
+    todoData.push(todoID);
+    todoID++;
 
     // Use the array to create a new Todo object
     const newTodo = new Todo(...todoData);
@@ -125,12 +148,11 @@ export function createProjectFromForm(event) {
     const title = document.getElementById('pTitle').value;
     const description = document.getElementById('pDescription').value;
     const dueDate = document.getElementById('pDueDate').value;
-    const priority = document.getElementById('pPriority').checked;
     const notes = document.getElementById('pNotes').value;
     const todo = []; // Initialize with an empty array or gather from form if applicable
 
     // Put the values into an array
-    const projectData = [title, description, dueDate, priority, notes, todo];
+    const projectData = [title, description, dueDate, notes, todo];
 
     // Use the array to create a new Project object
     const newProject = new Projects(...projectData);
@@ -149,3 +171,14 @@ export function createProjectFromForm(event) {
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state
 }
+
+
+
+// Function to delete a todo item
+function deleteTodo(id) {
+    const index = todos.findIndex(todo => todo.id === id);
+    if (index > -1) {
+      todos.splice(index, 1); // Remove from array
+      displayTodos(); // Re-render the list
+    }
+  }

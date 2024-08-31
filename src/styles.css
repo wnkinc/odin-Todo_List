@@ -172,15 +172,30 @@ body {
   width: 100%;
 
   border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
 
+}
+
+.todoItem:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.priorityMark:hover {
+  background-color: #333;
+  color: red;
 }
 
 .itemContainer {
   background-color: #eee;
   border-radius: 8px;
   margin-bottom: 10px;
+}
+
+.toggleTodo {
+  background-color: #eee;
+  border-radius: 0 0 8px 8px;
 }
 
 .priorityMark,

@@ -9,13 +9,14 @@ function Projects(title, description, dueDate, priority, notes, todo = []) {
     this.todo = todo;
 }
 
-function Todo(title, description, dueDate, priority, notes, project, id) {
+function Todo(title, description, dueDate, priority, notes, project, complete, id) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.notes = notes;
     this.project = project;
+    this.complete = complete;
     this.id = id;
 }
 
@@ -67,6 +68,12 @@ function updateTodoListByProject() {
         const itemButton = document.createElement('button');
         itemButton.classList.add('todoItem')
         const div1 = document.createElement('div');
+        
+        const completeCheck = document.createElement('input');
+        completeCheck.classList.add('complete');
+        completeCheck.type = 'checkbox';
+        div1.appendChild(completeCheck);
+
         const div2 = document.createElement('div');
         const div3 = document.createElement('div');
         div2.textContent = todo.title;
@@ -95,9 +102,20 @@ function updateTodoListByProject() {
             else toggleTodoDiv.style.display = 'flex';
         });
 
-         // Update todo.notes whenever the user types in the textarea
-         notesDiv.addEventListener('input', () => {
+        // Update todo.notes whenever the user types in the textarea
+        notesDiv.addEventListener('input', () => {
             todo.notes = notesDiv.value;
+        });
+
+        completeCheck.addEventListener('change', (event) => {
+            todo.complete = event.target.checked; // Update the todo.complete property
+
+            // Update div2 style based on the checkbox state
+            if (todo.complete) {
+                div2.style.textDecoration = 'line-through'; // Apply line-through
+            } else {
+                div2.style.textDecoration = 'none'; // Remove line-through
+            }
         });
 
         main.appendChild(itemContainer);

@@ -219,7 +219,11 @@ body {
 }
 
 .notes {
+  width: 80%;
   padding: 5px;
+  resize: vertical;
+  /* Allows users to resize the textarea vertically */
+  margin: 5px 15px 15px 15px;
 }
 
 .priorityMark,

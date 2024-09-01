@@ -71,8 +71,7 @@ function updateTodoListByProject() {
         const div3 = document.createElement('div');
         div2.textContent = todo.title;
         if (todo.priority) div2.classList.add('priorityMark');
-
-        div3.textContent = format(new Date(todo.dueDate), 'MM/dd/yyyy');;
+        if (todo.dueDate !== '') div3.textContent = format(new Date(todo.dueDate), 'MM/dd/yyyy');
         itemButton.append(div1, div2, div3);
         itemContainer.appendChild(itemButton);
 
@@ -81,20 +80,25 @@ function updateTodoListByProject() {
         itemContainer.appendChild(toggleTodoDiv);
         toggleTodoDiv.style.display = 'none';
 
-        itemButton.addEventListener('click', () => {
-            if (toggleTodoDiv.style.display === 'flex') toggleTodoDiv.style.display = 'none';
-            else toggleTodoDiv.style.display = 'flex';
-        });
-
         const descriptionDiv = document.createElement('div');
         descriptionDiv.classList.add('description');
         descriptionDiv.textContent = todo.description;
         toggleTodoDiv.appendChild(descriptionDiv);
 
-        const notesDiv = document.createElement('div');
+        const notesDiv = document.createElement('textarea');
         notesDiv.classList.add('notes');
         notesDiv.textContent = todo.notes;
         toggleTodoDiv.appendChild(notesDiv);
+
+        itemButton.addEventListener('click', () => {
+            if (toggleTodoDiv.style.display === 'flex') toggleTodoDiv.style.display = 'none';
+            else toggleTodoDiv.style.display = 'flex';
+        });
+
+         // Update todo.notes whenever the user types in the textarea
+         notesDiv.addEventListener('input', () => {
+            todo.notes = notesDiv.value;
+        });
 
         main.appendChild(itemContainer);
     });

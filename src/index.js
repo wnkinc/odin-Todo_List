@@ -1,7 +1,7 @@
 import 'normalize.css'; // Importing normalize.css from node_modules
 
 import "./styles.css";
-import { createTodoFromForm, createProjectFromForm } from './AppLogic';
+import { createTodoFromForm, createProjectFromForm, getCurrrentDate } from './AppLogic';
 import { revealForms, addHideForms } from './DOM-Stuff';
 
 addHideForms();
@@ -11,3 +11,7 @@ document.getElementById('todoForm').addEventListener('submit', createTodoFromFor
 document.getElementById('projectForm').addEventListener('submit', createProjectFromForm);
 
 revealForms();
+
+// **********************
+
+getCurrrentDate();

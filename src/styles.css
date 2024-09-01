@@ -33,6 +33,9 @@ body {
   color: #fff;
   padding: 20px;
   text-align: center;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .sidebar {
@@ -51,6 +54,7 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  align-content: center;
 }
 
 #todoForm,
@@ -136,6 +140,9 @@ body {
   border: none;
   cursor: pointer;
   text-align: center;
+
+  white-space: nowrap;        /* Prevents the text from wrapping to the next line */
+  overflow-x: auto;           /* Enables horizontal scrolling if content overflows */
 }
 
 .projectContainer {
@@ -170,6 +177,10 @@ body {
   font-size: 16px;
   border: 1px solid #ccc;
   width: 100%;
+  height: 50px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -196,9 +207,31 @@ body {
 .toggleTodo {
   background-color: #eee;
   border-radius: 0 0 8px 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  font-style: italic;
+  font-weight: 600;
 }
 
 .priorityMark,
 .checkbox {
   color: red;
+}
+
+.projectTitleSelected {
+  padding: 10px;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 600;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+
+  white-space: nowrap;        /* Prevents the text from wrapping to the next line */
+  overflow-x: auto;   
 }

@@ -64,8 +64,13 @@ function updateTodoListByProject () {
 
         const itemButton = document.createElement('button');
         itemButton.classList.add('todoItem')
-        if(todo.priority) itemButton.classList.add('priorityMark');
-        itemButton.textContent = todo.title;
+        const div1 = document.createElement('div');
+        const div2 = document.createElement('div');
+        const div3 = document.createElement('div');
+        div2.textContent = todo.title;
+        if(todo.priority) div2.classList.add('priorityMark');
+        div3.textContent = todo.dueDate;
+        itemButton.append(div1, div2, div3);
         itemContainer.appendChild(itemButton);
 
         const toggleTodoDiv = document.createElement('div');
@@ -83,11 +88,6 @@ function updateTodoListByProject () {
         descriptionDiv.textContent = todo.description;
         toggleTodoDiv.appendChild(descriptionDiv);
 
-        const dueDateDiv = document.createElement('div');
-        dueDateDiv.classList.add('dueDate');
-        dueDateDiv.textContent = todo.dueDate;
-        toggleTodoDiv.appendChild(dueDateDiv);
-
         const notesDiv = document.createElement('div');
         notesDiv.classList.add('notes');
         notesDiv.textContent = todo.notes;
@@ -96,11 +96,6 @@ function updateTodoListByProject () {
         main.appendChild(itemContainer);
     });
 }
-
-
-
-
-
 
 
 
@@ -171,6 +166,20 @@ export function createProjectFromForm(event) {
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state
 }
+
+export function getCurrrentDate() {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; 
+    const year = currentDate.getFullYear();
+    const h1Date = document.querySelector('.currentDate');
+    h1Date.textContent = `${month}/${day}/${year}`;
+}
+
+
+
+
+
 
 
 

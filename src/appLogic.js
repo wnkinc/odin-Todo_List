@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 // Constructor functions
 function Projects(title, description, dueDate, priority, notes, todo = []) {
     this.title = title;
@@ -53,10 +55,10 @@ function updateProjectsInProjects() {
     });
 }
 
-function updateTodoListByProject () {
+function updateTodoListByProject() {
     const main = document.querySelector('.main');
     main.innerHTML = '';
-    
+
     todos.forEach((todo) => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('itemContainer');
@@ -68,8 +70,9 @@ function updateTodoListByProject () {
         const div2 = document.createElement('div');
         const div3 = document.createElement('div');
         div2.textContent = todo.title;
-        if(todo.priority) div2.classList.add('priorityMark');
-        div3.textContent = todo.dueDate;
+        if (todo.priority) div2.classList.add('priorityMark');
+
+        div3.textContent = format(new Date(todo.dueDate), 'MM/dd/yyyy');;
         itemButton.append(div1, div2, div3);
         itemContainer.appendChild(itemButton);
 
@@ -79,8 +82,8 @@ function updateTodoListByProject () {
         toggleTodoDiv.style.display = 'none';
 
         itemButton.addEventListener('click', () => {
-            if(toggleTodoDiv.style.display === 'block') toggleTodoDiv.style.display = 'none';
-            else toggleTodoDiv.style.display = 'block';
+            if (toggleTodoDiv.style.display === 'flex') toggleTodoDiv.style.display = 'none';
+            else toggleTodoDiv.style.display = 'flex';
         });
 
         const descriptionDiv = document.createElement('div');
@@ -170,7 +173,7 @@ export function createProjectFromForm(event) {
 export function getCurrrentDate() {
     const currentDate = new Date();
     const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1; 
+    const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();
     const h1Date = document.querySelector('.currentDate');
     h1Date.textContent = `${month}/${day}/${year}`;
@@ -187,7 +190,7 @@ export function getCurrrentDate() {
 function deleteTodo(id) {
     const index = todos.findIndex(todo => todo.id === id);
     if (index > -1) {
-      todos.splice(index, 1); // Remove from array
-      displayTodos(); // Re-render the list
+        todos.splice(index, 1); // Remove from array
+        displayTodos(); // Re-render the list
     }
-  }
+}

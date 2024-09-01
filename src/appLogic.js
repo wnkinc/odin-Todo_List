@@ -20,12 +20,9 @@ function Todo(title, description, dueDate, priority, notes, project, id) {
 
 }
 
-export const todos = [];
-export const projects = [];
+const todos = [];
+const projects = [];
 let todoID = 1;
-const defaultProject = new Projects('No Project Selected', '', '', '',);
-projects.push(defaultProject);
-updateProjectsInProjects();
 
 function updateProjectsInTodo() {
     const todoSelect = document.querySelector('#project');
@@ -137,11 +134,6 @@ function updateTodoListByProject(filteredTodos = todos) {
     });
 }
 
-
-
-
-
-
 // Function to create a Todo from form input
 export function createTodoFromForm(event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -175,6 +167,7 @@ export function createTodoFromForm(event) {
 
     // Pass the filtered todos to updateTodoListByProject
     updateTodoListByProject(filteredTodos);
+    saveData();
 
     const projectTitleSelected = document.querySelector('.projectTitleSelected');
     projectTitleSelected.textContent = project;
@@ -210,6 +203,7 @@ export function createProjectFromForm(event) {
 
     updateProjectsInTodo();
     updateProjectsInProjects();
+    saveData();
 
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state
@@ -223,3 +217,59 @@ export function getCurrrentDate() {
     const h1Date = document.querySelector('.currentDate');
     h1Date.textContent = `${month}/${day}/${year}`;
 }
+
+
+
+// Save todos and projects to localStorage
+function saveData() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+// Load data from localStorage
+function loadData() {
+    const savedTodos = localStorage.getItem('todos');
+    const savedProjects = localStorage.getItem('projects');
+
+    if (savedTodos) {
+        // Parse and load saved todos
+        const parsedTodos = JSON.parse(savedTodos);
+        parsedTodos.forEach(todo => todos.push(new Todo(
+            todo.title,
+            todo.description,
+            todo.dueDate,
+            todo.priority,
+            todo.notes,
+            todo.project,
+            todo.id
+        )));
+    }
+
+    if (savedProjects) {
+        // Parse and load saved projects
+        const parsedProjects = JSON.parse(savedProjects);
+        parsedProjects.forEach(project => projects.push(new Projects(
+            project.title,
+            project.description,
+            project.dueDate,
+            project.notes,
+            project.todo
+        )));
+    }
+
+    // Update UI with loaded data
+    updateProjectsInTodo();
+    updateProjectsInProjects();
+    updateTodoListByProject(todos);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Your code that interacts with the DOM goes here
+    loadData();
+    const defaultProject = new Projects('No Project Selected', '', '', '',);
+    if (!projects.some(project => project.title === 'No Project Selected')) {
+        projects.push(defaultProject);
+        updateProjectsInProjects();
+        updateProjectsInTodo();
+    }
+});

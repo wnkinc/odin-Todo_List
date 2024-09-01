@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 
 // Constructor functions
-function Projects(title, description, dueDate, priority, notes, todo = []) {
+function Projects(title, description, dueDate, notes, todo = []) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -9,32 +9,27 @@ function Projects(title, description, dueDate, priority, notes, todo = []) {
     this.todo = todo;
 }
 
-function Todo(title, description, dueDate, priority, notes, project, complete, id) {
+function Todo(title, description, dueDate, priority, notes, project, id) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.notes = notes;
     this.project = project;
-    this.complete = complete;
     this.id = id;
+
 }
 
 export const todos = [];
 export const projects = [];
 let todoID = 1;
+const defaultProject = new Projects('No Project Selected', '', '', '',);
+projects.push(defaultProject);
+updateProjectsInProjects();
 
 function updateProjectsInTodo() {
     const todoSelect = document.querySelector('#project');
-    todoSelect.textContent = '';
-    const anotherOption = document.createElement('option');
-    // Set the attributes
-    anotherOption.value = ''; // or option.setAttribute('value', '');
-    anotherOption.disabled = true; // or option.setAttribute('disabled', '');
-    anotherOption.selected = true; // or option.setAttribute('selected', '');
-    anotherOption.hidden = true; // or option.setAttribute('hidden', '');
-    anotherOption.textContent = 'Select a project';
-    todoSelect.appendChild(anotherOption);
+    todoSelect.innerHTML = '';
 
     projects.forEach((project) => {
         const anotherOption = document.createElement('option');
@@ -52,23 +47,47 @@ function updateProjectsInProjects() {
         const projectButton = document.createElement('button');
         projectButton.classList.add('projectList');
         projectButton.textContent = project.title;
+
+
+        projectButton.addEventListener('click', () => {
+            const filteredTodos = todos.filter(todo => todo.project === project.title);
+            updateTodoListByProject(filteredTodos);
+            const projectTitleSelected = document.querySelector('.projectTitleSelected');
+            projectTitleSelected.textContent = project.title;
+        });
         projectButtons.appendChild(projectButton);
     });
 }
 
-function updateTodoListByProject() {
+function updateTodoListByProject(filteredTodos = todos) {
     const main = document.querySelector('.main');
-    main.innerHTML = '';
+    main.innerHTML = ''; // Clear the current list
 
-    todos.forEach((todo) => {
+    filteredTodos.forEach((todo) => { // Use filteredTodos here
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('itemContainer');
         itemContainer.dataset.id = todo.id;
 
         const itemButton = document.createElement('button');
-        itemButton.classList.add('todoItem')
+        itemButton.classList.add('todoItem');
         const div1 = document.createElement('div');
-        
+
+        const removeBtn = document.createElement('span');
+        removeBtn.classList.add('removeBtn');
+        removeBtn.textContent = '❌';
+        removeBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent the event from bubbling up to the button
+        });
+        removeBtn.addEventListener('click', () => {
+            const todoIndex = todos.findIndex((t) => t.id === todo.id);
+            if (todoIndex !== -1) {
+                todos.splice(todoIndex, 1);
+            }
+            updateTodoListByProject(filteredTodos.filter(t => t.id !== todo.id));
+        });
+
+        div1.appendChild(removeBtn);
+
         const completeCheck = document.createElement('input');
         completeCheck.classList.add('complete');
         completeCheck.type = 'checkbox';
@@ -98,29 +117,26 @@ function updateTodoListByProject() {
         toggleTodoDiv.appendChild(notesDiv);
 
         itemButton.addEventListener('click', () => {
-            if (toggleTodoDiv.style.display === 'flex') toggleTodoDiv.style.display = 'none';
-            else toggleTodoDiv.style.display = 'flex';
+            toggleTodoDiv.style.display = toggleTodoDiv.style.display === 'flex' ? 'none' : 'flex';
         });
 
-        // Update todo.notes whenever the user types in the textarea
         notesDiv.addEventListener('input', () => {
             todo.notes = notesDiv.value;
         });
 
-        completeCheck.addEventListener('change', (event) => {
-            todo.complete = event.target.checked; // Update the todo.complete property
+        completeCheck.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
 
-            // Update div2 style based on the checkbox state
-            if (todo.complete) {
-                div2.style.textDecoration = 'line-through'; // Apply line-through
-            } else {
-                div2.style.textDecoration = 'none'; // Remove line-through
-            }
+        completeCheck.addEventListener('change', (event) => {
+            todo.complete = event.target.checked;
+            div2.style.textDecoration = todo.complete ? 'line-through' : 'none';
         });
 
         main.appendChild(itemContainer);
     });
 }
+
 
 
 
@@ -154,7 +170,14 @@ export function createTodoFromForm(event) {
     todos.push(newTodo);
     console.log(todos);
 
-    updateTodoListByProject();
+    // Filter todos based on the selected project
+    const filteredTodos = todos.filter(todo => todo.project === project);
+
+    // Pass the filtered todos to updateTodoListByProject
+    updateTodoListByProject(filteredTodos);
+
+    const projectTitleSelected = document.querySelector('.projectTitleSelected');
+    projectTitleSelected.textContent = project;
 
     // Reset the form fields
     event.target.reset(); // Resets the form to its initial state
@@ -199,20 +222,4 @@ export function getCurrrentDate() {
     const year = currentDate.getFullYear();
     const h1Date = document.querySelector('.currentDate');
     h1Date.textContent = `${month}/${day}/${year}`;
-}
-
-
-
-
-
-
-
-
-// Function to delete a todo item
-function deleteTodo(id) {
-    const index = todos.findIndex(todo => todo.id === id);
-    if (index > -1) {
-        todos.splice(index, 1); // Remove from array
-        displayTodos(); // Re-render the list
-    }
 }

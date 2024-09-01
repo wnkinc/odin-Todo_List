@@ -244,3 +244,7 @@ body {
   white-space: nowrap;        /* Prevents the text from wrapping to the next line */
   overflow-x: auto;   
 }
+
+.removeBtn {
+  margin-right: 20px;
+}

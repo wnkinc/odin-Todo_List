@@ -12,8 +12,7 @@ function createTodoForm() {
         <div class="checkbox"><input type="checkbox" id="priority" /> Priority</div>
         <textarea id="notes" placeholder="Notes"></textarea>
         <select id="project">
-            <option value="" disabled selected hidden>Select A Project</option>
-            <option value="Personal">Personal</option>
+            <option value="No Project Selected" selected>Select A Project</option>
         </select>
         <button type="submit">Create To-Do</button>
     `;
